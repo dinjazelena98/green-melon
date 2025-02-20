@@ -1,0 +1,21 @@
+name: Lint and Format
+
+on:
+  push
+
+jobs:
+  check-and-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12" 
+      - name: check
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: check --line-length=100  --select=ALL
+      - name: format
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: format --line-length=100 --check --diff
