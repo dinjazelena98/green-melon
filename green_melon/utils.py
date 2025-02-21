@@ -7,7 +7,8 @@ import matplotlib.pyplot as plt
 
 
 def plot_pascal_voc_img(img: str, xml: str) -> None:
-    """Plot image with bounding boxes annotated with Pascal VOC format.
+    """
+    Plot image with bounding boxes annotated with Pascal VOC format.
 
     Args:
         img: str -> Path to image.
