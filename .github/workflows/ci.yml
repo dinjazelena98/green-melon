@@ -8,14 +8,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
       - uses: actions/setup-python@v5
         with:
+          python-version-file: "pyproject.toml"
+      - name: install
+        run: uv sync --group lint
+        with:
           python-version: 3.12
-      - name: check
-        uses: astral-sh/ruff-action@v3
-        with:
-          args: check --line-length=100  --select=ALL
-      - name: format
-        uses: astral-sh/ruff-action@v3
-        with:
-          args: format --line-length=100 --check --diff
+      - name: ruff check
+        run: uv run ruff check green_melon
+      - name: run format
+        run: uv run ruff format --check green_melon
+      - name: mypy
+        run: uv run mypy green_melon
