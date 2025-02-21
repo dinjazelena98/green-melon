@@ -14,8 +14,6 @@ jobs:
           python-version-file: "pyproject.toml"
       - name: install
         run: uv sync --group lint
-        with:
-          python-version: 3.12
       - name: ruff check
         run: uv run ruff check green_melon
       - name: run format
