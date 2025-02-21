@@ -2,7 +2,7 @@
 
 ## Overview
 
-GREEN-MELON is a project utilizing YOLO models for object detection of various plant species. The primary focus is on distinguishing between crops and weeds to aid in precision agriculture. The models are trained for the following detection tasks:
+Models for each target crop versus weed species:
 
 - **Broadleaf, Grass, and Wheat**
 - **Broadleaf, Grass, and Corn**
