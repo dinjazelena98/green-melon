@@ -1,7 +1,10 @@
+<div align="center">
+
 # GREEN-MELON
 
-## Overview
+[![Lint and Format](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml)
 
+</div>
 Models for each target crop versus weed species:
 
 - **Broadleaf, Grass, and Wheat**
