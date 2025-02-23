@@ -43,7 +43,7 @@ ignore = [
 python_version = "3.12"
 
 [[tool.mypy.overrides]]
-module = "green_melon.convert_annot"
+module = "green_melon.annot"
 disable_error_code = [
     "union-attr",
     "arg-type"

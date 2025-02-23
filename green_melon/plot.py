@@ -12,7 +12,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-from green_melon.convert_annot import IDS_TO_LABELS, yolo_to_pascal_box
+from green_melon.annot import yolo_to_pascal_box
 
 
 def _draw_annotation(
@@ -121,7 +121,7 @@ def plot_yolo_img(img: str, txt: str) -> None:
             (x_center, y_center, width, height), (image.shape[1], image.shape[0])
         )
 
-        _draw_annotation(image, IDS_TO_LABELS[label], (xmin, ymin, xmax, ymax))
+        _draw_annotation(image, label, (xmin, ymin, xmax, ymax))
 
     plt.figure(figsize=(10, 8))
     plt.imshow(image)

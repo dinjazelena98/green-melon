@@ -10,9 +10,6 @@ from __future__ import annotations
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-LABELS_TO_IDS: dict[str, int] = {"Alligatorweed": 0, "Asiatic_Smartweed": 1, "pigweed": 3}
-IDS_TO_LABELS: dict[int, str] = {v: k for k, v in LABELS_TO_IDS.items()}
-
 
 def pascal_to_yolo_box(
     size: tuple[int, int],
@@ -69,13 +66,14 @@ def yolo_to_pascal_box(
     return int(x_min), int(y_min), int(x_max), int(y_max)
 
 
-def xml2yolo(xml: str, out: str = "./") -> None:
+def xml2yolo(xml: str, labels_mapping: dict[str, int], out: str = "./") -> None:
     """
     Convert Pascal VOC XML format to YOLO txt format.
 
     Args:
     ----
         xml: Path to xml file to convert.
+        labels_mapping: A dictionary mapping class names (str) to YOLO class indices (int).
         out: Directory where to write the YOLO annotation file.
              The output filename will have the same basename as the xml file but with a .txt.
 
@@ -94,8 +92,8 @@ def xml2yolo(xml: str, out: str = "./") -> None:
     # iterate over all possible objects(bndboxes)
     for obj in root.findall("object"):
         label = obj.find("name").text.strip()
-        if label not in LABELS_TO_IDS:
-            msg = f"{label} not found in {LABELS_TO_IDS.keys()}"
+        if label not in labels_mapping:
+            msg = f"{label} not found in {labels_mapping.keys()}"
             raise ValueError(msg)
 
         bndbox = obj.find("bndbox")
@@ -109,8 +107,11 @@ def xml2yolo(xml: str, out: str = "./") -> None:
             (xmin, ymin, xmax, ymax),
         )
         yolo_format.append(
-            f"{LABELS_TO_IDS[label]} " + " ".join(f"{coord:.6f}" for coord in yolo_bndbox),
+            f"{labels_mapping[label]} " + " ".join(f"{coord:.6f}" for coord in yolo_bndbox),
         )
 
-    with (Path(out) / (Path(xml).stem + ".txt")).open("w") as f:
+    out_path = Path(out)
+    out_path.mkdir(parents=True, exist_ok=True)
+    output_file = out_path / (Path(xml).stem + ".txt")
+    with output_file.open("w") as f:
         f.write("\n".join(yolo_format))
