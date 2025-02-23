@@ -26,7 +26,8 @@ from __future__ import annotations
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-LABELS_TO_IDS: dict[str, int] = {"Alligatorweed": 0, "Asiatic_Smartweed": 1}
+LABELS_TO_IDS: dict[str, int] = {"Alligatorweed": 0, "Asiatic_Smartweed": 1, "pigweed": 3}
+IDS_TO_LABELS: dict[int, str] = {v: k for k, v in LABELS_TO_IDS.items()}
 
 
 def convert_bndbox(
@@ -91,3 +92,7 @@ def xml2yolo(xml: str, out: str = "./") -> None:
 
     with (Path(out) / (Path(xml).stem + ".txt")).open("w") as f:
         f.write("\n".join(yolo_format))
+
+
+if __name__ == "__main__":
+    xml2yolo(xml="../dataset/labels/pigweed (1289).xml")
