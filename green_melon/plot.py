@@ -1,4 +1,9 @@
-"""Utility functions for all sorts of stuff."""
+"""
+Utility Functions for Image Annotation Visualization.
+
+This module provides functions to convert YOLO normalized bounding boxes to absolute pixel
+coordinates and to plot annotated images using either Pascal VOC (XML) or YOLO (TXT) formats.
+"""
 
 import xml.etree.ElementTree as ET
 from pathlib import Path
