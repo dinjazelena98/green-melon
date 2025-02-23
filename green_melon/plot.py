@@ -10,45 +10,40 @@ from pathlib import Path
 
 import cv2
 import matplotlib.pyplot as plt
+import numpy as np
 
-from green_melon.convert_annot import IDS_TO_LABELS
+from green_melon.convert_annot import IDS_TO_LABELS, yolo_to_pascal_box
 
 
-def _convert_to_absolute_coordinates(
-    yolo_coordinates: tuple[float, float, float, float], image_size: tuple[int, int]
-) -> tuple[int, int, int, int]:
+def _draw_annotation(
+    image: np.ndarray,
+    label: str,
+    box: tuple[int, int, int, int],
+) -> None:
     """
-    Convert bounding box coordinates from YOLO format to absolute pixel coordinates.
-
-    YOLO annotations use normalized values with the format (x_center, y_center, width, height),
-    where the coordinates are relative to the image dimensions. This function converts these
-    normalized values into absolute pixel coordinates given the image size.
+    Draw a bounding box and label on the image.
 
     Args:
     ----
-        yolo_coordinates (tuple[float, float, float, float]):
-            A tuple (x_center, y_center, width, height) with normalized values.
-        image_size (tuple[int, int]):
-            A tuple (width, height) representing the dimensions of the image in pixels.
+        image: The image (as a NumPy array) to draw on.
+        label: The text label to display.
+        box: A tuple (xmin, ymin, xmax, ymax) defining the bounding box.
 
-    Returns:
-    -------
-        tuple[int, int, int, int]:
-            A tuple (x_min, y_min, x_max, y_max) representing the bounding box in absolute pixel coordinates.
-
-    """  # noqa: E501
-    x_center, y_center, box_width, box_height = yolo_coordinates
-    img_width, img_height = image_size
-
-    x_max: float = img_width * x_center + (box_width * img_width / 2)
-    x_min: float = img_width * x_center - (box_width * img_width / 2)
-    y_max: float = img_height * y_center + (box_height * img_height / 2)
-    y_min: float = img_height * y_center - (box_height * img_height / 2)
-
-    return int(x_min), int(y_min), int(x_max), int(y_max)
+    """
+    xmin, ymin, xmax, ymax = box
+    cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255, 0, 0), 5)
+    cv2.putText(
+        image,
+        label,
+        (xmin, max(ymin - 10, 0)),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        2,
+        (255, 0, 0),
+        3,
+    )
 
 
-def plot_pascal_voc_img(img: str, xml: str) -> None:
+def plot_pascal_img(img: str, xml: str) -> None:
     """
     Display an image with bounding boxes and labels from a Pascal VOC XML annotation.
 
@@ -81,23 +76,15 @@ def plot_pascal_voc_img(img: str, xml: str) -> None:
         xmax = int(bndbox.find("xmax").text)
         ymax = int(bndbox.find("ymax").text)
 
-        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255, 0, 0), 5)
-        cv2.putText(
-            image,
-            obj.find("name").text.strip(),
-            (xmin, max(ymin - 10, 0)),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            2,
-            (255, 0, 0),
-            3,
-        )
+        _draw_annotation(image, obj.find("name").text.strip(), (xmin, ymin, xmax, ymax))
+
     plt.figure(figsize=(10, 8))
     plt.imshow(image)
     plt.axis("off")
     plt.show()
 
 
-def plot_yolo_txt_img(img: str, txt: str) -> None:
+def plot_yolo_img(img: str, txt: str) -> None:
     """
     Display an image with bounding boxes and labels from a YOLO TXT annotation.
 
@@ -130,20 +117,12 @@ def plot_yolo_txt_img(img: str, txt: str) -> None:
         width = float(parts[3])
         height = float(parts[4])
 
-        xmin, ymin, xmax, ymax = _convert_to_absolute_coordinates(
+        xmin, ymin, xmax, ymax = yolo_to_pascal_box(
             (x_center, y_center, width, height), (image.shape[1], image.shape[0])
         )
 
-        cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255, 0, 0), 5)
-        cv2.putText(
-            image,
-            IDS_TO_LABELS[label],
-            (xmin, max(ymin - 10, 0)),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            2,
-            (255, 0, 0),
-            3,
-        )
+        _draw_annotation(image, IDS_TO_LABELS[label], (xmin, ymin, xmax, ymax))
+
     plt.figure(figsize=(10, 8))
     plt.imshow(image)
     plt.axis("off")

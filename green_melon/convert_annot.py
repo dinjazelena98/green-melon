@@ -1,24 +1,8 @@
 """
-Utility functions to convert Pascal VOC XML format system to YOLO txt format.
+Utility functions to convert between Pascal VOC XML annotations and YOLO TXT format.
 
-In Pascal VOC, the bounding box is defined using absolute pixel values with four coordinates:
-    * xmin - The x-coordinate of the top-left corner
-    * ymin - The y-coordinate of the top-left corner
-    * xmax - The x-coordinate of the bottom-right corner
-    * ymax - The y-coordinate of the bottom-right corner
-e.g:
-<xmin>923</xmin>
-<ymin>170</ymin>
-<xmax>2066</xmax>
-<ymax>1621</ymax>
-
-While YOLO's annotation format requires each object to be presented as a single line:
-<class_index> <x_center> <y_center> <width> <height>
-
-x_center and y_center represent the center of the bounding box,
-and width and height represent its dimensions.
-
-All these values are normalized by image width and height so that they are between 0 and 1.
+Pascal VOC uses pixel coordinates (xmin, ymin, xmax, ymax), while YOLO uses normalized
+coordinates (<class_index> <x_center> <y_center> <width> <height>).
 """
 
 from __future__ import annotations
@@ -30,21 +14,59 @@ LABELS_TO_IDS: dict[str, int] = {"Alligatorweed": 0, "Asiatic_Smartweed": 1, "pi
 IDS_TO_LABELS: dict[int, str] = {v: k for k, v in LABELS_TO_IDS.items()}
 
 
-def convert_bndbox(
+def pascal_to_yolo_box(
     size: tuple[int, int],
     bndbox: tuple[int, int, int, int],
 ) -> tuple[float, float, float, float]:
-    """Convert Pascal VOC box format to YOLO box format."""
+    """
+    Convert a Pascal VOC bounding box to YOLO format.
+
+    Args:
+    ----
+        size: (width, height) of the image in pixels.
+        bndbox: Bounding box as (xmin, ymin, xmax, ymax).
+
+    Returns:
+    -------
+        Bounding box in YOLO format as (x_center, y_center, width, height) with values normalized.
+
+    """
     img_width, img_height = size
     xmin, ymin, xmax, ymax = bndbox
 
     bndbox_width: float = (xmax - xmin) / img_width
     bndbox_height: float = (ymax - ymin) / img_height
-
     x_center: float = (xmin + xmax) / 2 / img_width
     y_center: float = (ymin + ymax) / 2 / img_height
 
     return x_center, y_center, bndbox_width, bndbox_height
+
+
+def yolo_to_pascal_box(
+    yolo_coordinates: tuple[float, float, float, float], image_size: tuple[int, int]
+) -> tuple[int, int, int, int]:
+    """
+    Convert YOLO bounding box coordinates to Pascal VOC format.
+
+    Args:
+    ----
+        yolo_coordinates: (x_center, y_center, width, height) in normalized values.
+        image_size: (width, height) of the image in pixels.
+
+    Returns:
+    -------
+        Bounding box in Pascal VOC format as (xmin, ymin, xmax, ymax) in pixel values.
+
+    """
+    x_center, y_center, box_width, box_height = yolo_coordinates
+    img_width, img_height = image_size
+
+    x_max: float = img_width * x_center + (box_width * img_width / 2)
+    x_min: float = img_width * x_center - (box_width * img_width / 2)
+    y_max: float = img_height * y_center + (box_height * img_height / 2)
+    y_min: float = img_height * y_center - (box_height * img_height / 2)
+
+    return int(x_min), int(y_min), int(x_max), int(y_max)
 
 
 def xml2yolo(xml: str, out: str = "./") -> None:
@@ -82,7 +104,7 @@ def xml2yolo(xml: str, out: str = "./") -> None:
         xmax = int(bndbox.find("xmax").text)
         ymax = int(bndbox.find("ymax").text)
 
-        yolo_bndbox: tuple[float, float, float, float] = convert_bndbox(
+        yolo_bndbox: tuple[float, float, float, float] = pascal_to_yolo_box(
             (img_width, img_height),
             (xmin, ymin, xmax, ymax),
         )
@@ -92,7 +114,3 @@ def xml2yolo(xml: str, out: str = "./") -> None:
 
     with (Path(out) / (Path(xml).stem + ".txt")).open("w") as f:
         f.write("\n".join(yolo_format))
-
-
-if __name__ == "__main__":
-    xml2yolo(xml="../dataset/labels/pigweed (1289).xml")
