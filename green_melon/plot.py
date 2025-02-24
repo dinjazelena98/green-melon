@@ -34,7 +34,7 @@ def _draw_annotation(
     cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (255, 0, 0), 5)
     cv2.putText(
         image,
-        label,
+        str(label),
         (xmin, max(ymin - 10, 0)),
         cv2.FONT_HERSHEY_SIMPLEX,
         2,
