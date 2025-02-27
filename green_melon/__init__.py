@@ -1,4 +1,4 @@
-from .annot import pascal_to_yolo_box, xml2yolo, yolo_to_pascal_box
+from .annot import coco_to_yolo_box, pascal_to_yolo_box, xml2yolo, yolo_to_pascal_box
 from .plot import plot_pascal_img, plot_yolo_img
 
 __all__ = [
