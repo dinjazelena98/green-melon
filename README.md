@@ -4,8 +4,6 @@
 
 [![Lint and Format](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml)
 
-## Target Mapping
-
 🌿 **Broadleaf** → `0`  
 🌱 **Grass** → `1`  
 🌽 **Corn** → `2`  
