@@ -74,10 +74,10 @@
 
 ---
 
-### 🔹 [Sorghum-Weed-Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1) _(TODO)_
+### [Sorghum-Weed-Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1) _(TODO)_
 
 ---
 
-### 🔹 [CROP-AND-WEED Dataset](https://github.com/cropandweed/cropandweed-dataset) _(TODO)_
+### [CROP-AND-WEED Dataset](https://github.com/cropandweed/cropandweed-dataset) _(TODO)_
 
 ---
