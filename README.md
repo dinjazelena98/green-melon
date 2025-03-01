@@ -5,6 +5,21 @@
 [![Lint and Format](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml)
 
 </div>
+
+<div align="center">
+
+<h2 style="font-family: monospace; font-size: 1.5em;">
+{
+    "broadleaf": 0,
+    "grass": 1,
+    "corn": 2,
+    "wheat": 3,
+    "sunflower": 4
+}
+</h2>
+
+</div>
+
 Models for each target crop versus weed species:
 
 - **Broadleaf, Grass, and Wheat**
@@ -30,6 +45,18 @@ Models for each target crop versus weed species:
 - **Barnyard Grass** → 564 images
 - **Crabgrass** → 595 images
 - **Green Foxtail** → 553 images _(High-quality images in field)_
+
+
+### YOLO Version
+
+- **Total Images:** 6,394 images of broadleaf and grass weeds.
+- **Image Distribution:**
+  - **Broadleaf Weeds:** 4,717 images
+  - **Grass Weeds:** 1,677 images
+- **Bounding Boxes:**
+  - **Broadleaf Weed Images:** 5,590 bounding boxes
+  - **Grass Weed Images:** 1,961 bounding boxes
+- **Annotation Details:** Each image may contain multiple bounding boxes, but every image is associated with a single unique label.
 
 ---
 
