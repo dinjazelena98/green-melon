@@ -60,11 +60,16 @@ Models for each target crop versus weed species:
 
 ---
 
-### [BROAD-LEAVED-DOCK Dataset](https://www.kaggle.com/datasets/gavinarmstrong/open-sprayer-images/data)(TODO)
+### [BROAD-LEAVED-DOCK Dataset](https://www.kaggle.com/datasets/gavinarmstrong/open-sprayer-images/data)
 
 #### **BROADLEAF**
-- Manually curated selection of high-quality broadleaf images.
-
+ - broad-leaved docks (Rumex obtusifolius) are considered a broadleaf weed,
+ - Contains 1307 images of broad-leaved docks.
+ - Contains 5392 images of non broad-leaved docks which is everything else.
+ - It comes without annotations, we have to manually pick and choose images and draw bounding boxes.
+ - Most of the image are shit, but could potentionally contain good ones.
+ - Check for non broad-leaved docks images for inclusion of background images.
+ 
 ---
 
 ### [CROP-AND-WEED Dataset](https://github.com/cropandweed/cropandweed-dataset)(TODO)
