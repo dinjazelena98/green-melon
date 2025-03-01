@@ -4,23 +4,17 @@
 
 [![Lint and Format](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml)
 
-
-</div>
-
+<h2>
 <div align="center">
 
-<h2 style="font-family: monospace; font-size: 1.5em;">
-{<br>
-    <span style="color:rgb(190, 10, 10);">"broadleaf"</span>: 0,<br>
-    <span style="color: #3498db;">"grass"</span>: 1,<br>
-    <span style="color: #f1c40f;">"corn"</span>: 2,<br>
-    <span style="color: #2ecc71;">"wheat"</span>: 3,<br>
-    <span style="color: #9b59b6;">"sunflower"</span>: 4<br>
-}
-</h2>
+🌿 **Broadleaf** → `0`  
+🌱 **Grass** → `1`  
+🌽 **Corn** → `2`  
+🌾 **Wheat** → `3`  
+🌻 **Sunflower** → `4`  
 
 </div>
-
+</h2>
 Models for each target crop versus weed species:
 
 - **Broadleaf, Grass, and Wheat**
