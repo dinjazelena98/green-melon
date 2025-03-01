@@ -1,81 +1,102 @@
 <div align="center">
+  
+### Label Mapping
 
-# 🌱 GREEN-MELON
-
-[![Lint and Format](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml)
-
-🌿 **Broadleaf** → `0`  
-🌱 **Grass** → `1`  
-🌽 **Corn** → `2`  
-🌾 **Wheat** → `3`  
-🌻 **Sunflower** → `4`  
+ 🌿 **Broadleaf** → `0`  
+ 🌱 **Grass** → `1`  
+ 🌽 **Corn** → `2`  
+ 🌾 **Wheat** → `3`  
+ 🌻 **Sunflower** → `4`  
 
 </div>
 
 ---
 
 ## Models for Each Target Crop vs. Weed Species
-- **Broadleaf, Grass, and Wheat**
-- **Broadleaf, Grass, and Corn**
+
+- **Broadleaf, Grass, and Wheat**  
+- **Broadleaf, Grass, and Corn**  
 - **Broadleaf, Grass, and Sunflower**
 
 ---
 
-## DATASETS
+## Datasets
 
 ### [WEED25 Dataset](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.1053329/full)
 
 #### **🌿 Broadleaf Weeds**
-- **Pigweed** → `744` images
-- **White Smartweed** → `670` images
-- **Chinese Knotweed** → `391` images
-- **Horseweed** → `190` images _(Check augmentation for this class)_
-- **Velvetleaf** → `623` images
-- **Cocklebur** → `750` images
-- **Goosefoot** → `594` images
-- **Purslane** → `730` images
+- **Pigweed:** `744` images  
+- **White Smartweed:** `670` images  
+- **Chinese Knotweed:** `391` images  
+- **Horseweed:** `190` images _(Check augmentation for this class)_  
+- **Velvetleaf:** `623` images  
+- **Cocklebur:** `750` images  
+- **Goosefoot:** `594` images  
+- **Purslane:** `730` images  
 
 #### **🌱 Grass Weeds**
-- **Barnyard Grass** → `564` images
-- **Crabgrass** → `595` images
-- **Green Foxtail** → `553` images _(High-quality images in the field)_
+- **Barnyard Grass:** `564` images  
+- **Crabgrass:** `595` images  
+- **Green Foxtail:** `553` images _(High-quality field images)_
 
 ---
 
-### YOLO Version of WEED25
-
-- **Total Images:** `6,394` images of broadleaf and grass weeds.
+#### YOLO Version of WEED25
+- **Total Images:** `6,394` images (broadleaf and grass weeds)  
 - **Image Distribution:**
-  - 🌿 **Broadleaf Weeds:** `4,717` images
-  - 🌱 **Grass Weeds:** `1,677` images
+  - 🌿 **Broadleaf Weeds:** `4,717` images  
+  - 🌱 **Grass Weeds:** `1,677` images  
 - **Bounding Boxes:**
-  - 🌿 **Broadleaf Weed Images:** `5,590` bounding boxes
-  - 🌱 **Grass Weed Images:** `1,961` bounding boxes
+  - 🌿 **Broadleaf Weed Images:** `5,590` bounding boxes  
+  - 🌱 **Grass Weed Images:** `1,961` bounding boxes  
 - **Annotation Details:**  
   Each image may contain **multiple bounding boxes**, but every image is associated with a **single unique label**.
 
 ---
 
-### [BROAD-LEAVED-DOCK Dataset](https://www.kaggle.com/datasets/gavinarmstrong/open-sprayer-images/data)
+### [Sorghumweed Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1)
+
+#### Sorghumweed Dataset Segmentation
+- **Total Images:** `4,312` images  
+- **Class Distribution:**
+  - **🌿Broadleaf Weeds:** `1,441` images
+  - **🌱Grass Weeds:** `1,467` images
+- High quality images but would requiry manual labeling.
+
+#### YOLO Version of Sorghumweed Dataset Segmentation
+
+- **Total Images:** `253` images (broadleaf and grass weeds)
+
+- **Images with a Unique Label (per label):**
+  - **🌿 Broadleaf Weeds:** `35` images  
+  - **🌱 Grass Weeds:** `8` images  
+
+- **Images with Both Labels:** `140` images
+
+- **Overall Image Count per Label:**
+  - **🌿 Broadleaf Weeds:** `175` images  
+  - **🌱 Grass Weeds:** `148` images
+
+- **Empty Images (No Annotations):** `69` images
+
+- **Number of Bounding Boxes per Label:**
+  - **🌿 Broadleaf Weeds:** `2785` bounding boxes  
+  - **🌱 Grass Weeds:** `609` bounding boxes
+
+---
+
+### [Broad-Leaved Dock Dataset](https://www.kaggle.com/datasets/gavinarmstrong/open-sprayer-images/data)
 
 #### **🌿 Broadleaf Weeds**
 - **Broad-leaved docks (Rumex obtusifolius)** are considered a broadleaf weed.
 - **Contains:**  
-  - `1,307` images of broad-leaved docks.  
-  - `5,392` images of non broad-leaved docks (background & other elements).
+  - `1,307` images of broad-leaved docks  
+  - `5,392` images of non broad-leaved docks (background & other elements)
 - **Annotation Status:**
-  - No annotations provided.
-  - Requires manual labeling (bounding boxes).
+  - No annotations provided (requires manual labeling using bounding boxes)
 - **Data Quality:**  
-  - Most images are **shit**, but some could be useful.
-  - Check non broad-leaved dock images for potential **background images**.
+  - Many images are `shit`; however, select images may serve as useful background examples.
 
 ---
 
-### [Sorghum-Weed-Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1) _(TODO)_
-
----
-
-### [CROP-AND-WEED Dataset](https://github.com/cropandweed/cropandweed-dataset) _(TODO)_
-
----
+### [Crop-and-Weed Dataset](https://github.com/cropandweed/cropandweed-dataset) _(TODO)_
