@@ -4,17 +4,18 @@
 
 [![Lint and Format](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/dinjazelena98/green-melon/actions/workflows/ci.yml)
 
+
 </div>
 
 <div align="center">
 
 <h2 style="font-family: monospace; font-size: 1.5em;">
-{
-    "broadleaf": 0,
-    "grass": 1,
-    "corn": 2,
-    "wheat": 3,
-    "sunflower": 4
+{<br>
+    <span style="color:rgb(190, 10, 10);">"broadleaf"</span>: 0,<br>
+    <span style="color: #3498db;">"grass"</span>: 1,<br>
+    <span style="color: #f1c40f;">"corn"</span>: 2,<br>
+    <span style="color: #2ecc71;">"wheat"</span>: 3,<br>
+    <span style="color: #9b59b6;">"sunflower"</span>: 4<br>
 }
 </h2>
 
@@ -72,19 +73,8 @@ Models for each target crop versus weed species:
  
 ---
 
-### [CROP-AND-WEED Dataset](https://github.com/cropandweed/cropandweed-dataset)(TODO)
-
-#### **BROADLEAF**
-- Category 1
-
-#### **GRASS**
-- Category 1
-
----
 ### [Sorghum-Weed-Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1)(TODO)
 
-#### **BROADLEAF**
-- Category 1
+---
 
-#### **GRASS**
-- Category 1
+### [CROP-AND-WEED Dataset](https://github.com/cropandweed/cropandweed-dataset)(TODO)
