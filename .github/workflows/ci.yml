@@ -1,4 +1,4 @@
-name: Lint and Format
+name: CI
 
 on:
   push
@@ -20,3 +20,5 @@ jobs:
         run: uv run ruff format --check green_melon
       - name: mypy
         run: uv run mypy green_melon
+      - name: pytest
+        run: uv run pytest tests

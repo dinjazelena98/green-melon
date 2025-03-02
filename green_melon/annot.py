@@ -9,74 +9,143 @@ from __future__ import annotations
 
 import json
 import xml.etree.ElementTree as ET
+from dataclasses import dataclass
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+
+
+@dataclass
+class PascalBox:
+    """
+    Represents a bounding box in Pascal VOC format.
+
+    Attributes
+    ----------
+        xmin (int): The x-coordinate of the top-left corner in pixels.
+        ymin (int): The y-coordinate of the top-left corner in pixels.
+        xmax (int): The x-coordinate of the bottom-right corner in pixels.
+        ymax (int): The y-coordinate of the bottom-right corner in pixels.
+
+    """
+
+    xmin: int
+    ymin: int
+    xmax: int
+    ymax: int
+
+    def __iter__(self) -> Iterator[int]:
+        """
+        Iterate over the bounding box coordinates.
+
+        Yields
+        ------
+            Iterator[int]: Coordinates in the order: xmin, ymin, xmax, ymax.
+
+        """
+        return iter((self.xmin, self.ymin, self.xmax, self.ymax))
+
+
+@dataclass
+class YoloBox:
+    """
+    Represents a bounding box in YOLO format with normalized coordinates.
+
+    Attributes
+    ----------
+        x_center (float): The normalized x-coordinate of the box center (value between 0 and 1).
+        y_center (float): The normalized y-coordinate of the box center (value between 0 and 1).
+        bbox_width (float): The normalized width of the bounding box (value between 0 and 1).
+        bbox_height (float): The normalized height of the bounding box (value between 0 and 1).
+
+    """
+
+    x_center: float
+    y_center: float
+    bbox_width: float
+    bbox_height: float
+
+    def __iter__(self) -> Iterator[float]:
+        """
+        Iterate over the YOLO bounding box parameters.
+
+        Yields
+        ------
+            Iterator[float]: Parameters in the order: x_center, y_center, bbox_width, bbox_height.
+
+        """
+        return iter((self.x_center, self.y_center, self.bbox_width, self.bbox_height))
 
 
 def pascal_to_yolo_box(
     size: tuple[int, int],
-    bndbox: tuple[int, int, int, int],
-) -> tuple[float, float, float, float]:
+    bbox: PascalBox,
+) -> YoloBox:
     """
     Convert a Pascal VOC bounding box to YOLO format.
 
     Args:
     ----
-        size: (width, height) of the image in pixels.
-        bndbox: Bounding box as (xmin, ymin, xmax, ymax).
+        size (tuple[int, int]): The dimensions of the image in pixels (width, height).
+        bbox (PascalBox): The bounding box in Pascal VOC format.
 
     Returns:
     -------
-        Bounding box in YOLO format as (x_center, y_center, width, height) with values normalized.
+        YoloBox: The bounding box in YOLO format with normalized coordinates:
+            - x_center: normalized center x-coordinate,
+            - y_center: normalized center y-coordinate,
+            - bbox_width: normalized width,
+            - bbox_height: normalized height.
 
     """
     img_width, img_height = size
-    xmin, ymin, xmax, ymax = bndbox
 
-    bndbox_width: float = (xmax - xmin) / img_width
-    bndbox_height: float = (ymax - ymin) / img_height
-    x_center: float = (xmin + xmax) / 2 / img_width
-    y_center: float = (ymin + ymax) / 2 / img_height
+    bndbox_width: float = (bbox.xmax - bbox.xmin) / img_width
+    bndbox_height: float = (bbox.ymax - bbox.ymin) / img_height
+    x_center: float = (bbox.xmin + bbox.xmax) / 2 / img_width
+    y_center: float = (bbox.ymin + bbox.ymax) / 2 / img_height
 
-    return x_center, y_center, bndbox_width, bndbox_height
+    return YoloBox(x_center, y_center, bndbox_width, bndbox_height)
 
 
-def yolo_to_pascal_box(
-    yolo_coordinates: tuple[float, float, float, float], image_size: tuple[int, int]
-) -> tuple[int, int, int, int]:
+def yolo_to_pascal_box(size: tuple[int, int], bbox: YoloBox) -> PascalBox:
     """
-    Convert YOLO bounding box coordinates to Pascal VOC format.
+    Convert a YOLO bounding box to Pascal VOC format.
 
     Args:
     ----
-        yolo_coordinates: (x_center, y_center, width, height) in normalized values.
-        image_size: (width, height) of the image in pixels.
+        size (tuple[int, int]): The dimensions of the image in pixels (width, height).
+        bbox (YoloBox): The bounding box in YOLO format with normalized coordinates.
 
     Returns:
     -------
-        Bounding box in Pascal VOC format as (xmin, ymin, xmax, ymax) in pixel values.
+        PascalBox: The bounding box in Pascal VOC format, where:
+            - xmin and ymin are the pixel coordinates of the top-left corner,
+            - xmax and ymax are the pixel coordinates of the bottom-right corner.
 
     """
-    x_center, y_center, box_width, box_height = yolo_coordinates
-    img_width, img_height = image_size
+    img_width, img_height = size
 
-    x_max: float = img_width * x_center + (box_width * img_width / 2)
-    x_min: float = img_width * x_center - (box_width * img_width / 2)
-    y_max: float = img_height * y_center + (box_height * img_height / 2)
-    y_min: float = img_height * y_center - (box_height * img_height / 2)
+    x_max: float = img_width * bbox.x_center + (bbox.bbox_width * img_width / 2)
+    x_min: float = img_width * bbox.x_center - (bbox.bbox_width * img_width / 2)
+    y_max: float = img_height * bbox.y_center + (bbox.bbox_height * img_height / 2)
+    y_min: float = img_height * bbox.y_center - (bbox.bbox_height * img_height / 2)
 
-    return int(x_min), int(y_min), int(x_max), int(y_max)
+    return PascalBox(int(x_min), int(y_min), int(x_max), int(y_max))
 
 
 def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> None:
     """
-    Convert Pascal VOC XML format to YOLO txt format.
+    Convert a Pascal VOC XML annotation file to YOLO TXT format.
 
     Args:
     ----
-        xml_path: Path to xml file to convert.
-        labels_mapping: A dictionary mapping class names (str) to YOLO class indices (int).
-        out: Directory where to write the YOLO annotation file.
-             The output filename will have the same basename as the xml file but with a .txt.
+        xml_path (str): The path to the XML file to convert.
+        labels_mapping (dict[str, int]): A dictionary mapping class names to YOLO class indices.
+        out (str, optional): The directory where the YOLO annotation file will be saved.
+            The output file will have the same base name as the XML file with a .txt extension.
 
     Returns:
     -------
@@ -90,7 +159,7 @@ def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> 
 
     img_width: int = int(root.find("size").find("width").text)
     img_height: int = int(root.find("size").find("height").text)
-    # iterate over all possible objects(bndboxes)
+
     for obj in root.findall("object"):
         label = obj.find("name").text.strip()
         if label not in labels_mapping:
@@ -103,12 +172,12 @@ def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> 
         xmax = int(bndbox.find("xmax").text)
         ymax = int(bndbox.find("ymax").text)
 
-        yolo_bndbox: tuple[float, float, float, float] = pascal_to_yolo_box(
+        yolo_bndbox: YoloBox = pascal_to_yolo_box(
             (img_width, img_height),
-            (xmin, ymin, xmax, ymax),
+            PascalBox(xmin, ymin, xmax, ymax),
         )
         yolo_format.append(
-            f"{labels_mapping[label]} " + " ".join(f"{coord:.6f}" for coord in yolo_bndbox),
+            f"{labels_mapping[label]} " + " ".join(f"{coord:.6f}" for coord in yolo_bndbox)
         )
 
     out_path = Path(out)
@@ -120,20 +189,24 @@ def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> 
 
 def coco_to_yolo_box(json_path: str, labels_mapping: dict, out: str = "./") -> None:
     """
-    Convert COCO annotations to YOLO format and save them to text files.
+    Convert COCO annotations to YOLO TXT format and save them to text files.
 
     This function reads a COCO-format JSON file containing image and annotation data,
-    converts each annotation's bounding box into the YOLO format (normalized x_center,
-    y_center, width, height), and writes the annotations for each image into a separate
-    text file in the specified output directory. The YOLO label for each annotation is
-    determined using the provided labels_mapping dictionary.
+    converts each annotation's bounding box into YOLO format
+    (normalized x_center, y_center, width, height), and writes the annotations for each image into
+    a separate text file in the specified output directory.
+    The YOLO label for each annotation is determined using the provided labels_mapping dictionary.
 
     Args:
     ----
         json_path (str): The file path to the input JSON file in COCO format.
         labels_mapping (dict): A mapping from COCO category IDs to YOLO label indices.
         out (str, optional): The output directory where YOLO-format annotation files will be saved.
-                             Defaults to "./".
+            Defaults to "./".
+
+    Returns:
+    -------
+        None
 
     """
     with Path(json_path).open("r") as f:
