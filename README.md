@@ -56,7 +56,7 @@
 
 ### [Sorghumweed Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1)
 
-#### Sorghumweed Dataset Segmentation
+#### Sorghumweed Dataset Classification
 - **Total Images:** `4,312` images  
 - **Class Distribution:**
   - **🌿Broadleaf Weeds:** `1,441` images
