@@ -99,4 +99,23 @@
 
 ---
 
-### [Crop-and-Weed Dataset](https://github.com/cropandweed/cropandweed-dataset) _(TODO)_
+### [Crop-and-Weed Dataset](https://github.com/cropandweed/cropandweed-dataset)
+
+#### YOLO Version of Crop-and-Weed Dataset
+
+**Label Occurrence Statistics:**
+
+- **Bounding Box Count per Label:**
+  - **🌿 Broadleaf Weeds:** 37,501 boxes  
+  - **🌱 Grass Weeds:** 21,758 boxes  
+  - **🌽 Corn:** 6,162 boxes  
+  - **🌻 Sunflower:** 1,916 boxes  
+  *(Note: Wheat (3) did not yield any annotations.)*
+
+- **Image Count per Label:**
+  - **🌿 Broadleaf Weeds:** found in 5,098 images  
+  - **🌱 Grass Weeds:** found in 3,000 images  
+  - **🌽 Corn:** found in 1,882 images  
+  - **🌻 Sunflower:** found in 607 images
+
+---
