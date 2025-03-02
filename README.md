@@ -103,7 +103,7 @@
 
 #### YOLO Version of Crop-and-Weed Dataset
 
-**Label Occurrence Statistics:**
+- Total Images: `6,990` images
 
 - **Bounding Box Count per Label:**
   - **🌿 Broadleaf Weeds:** 37,501 boxes  
