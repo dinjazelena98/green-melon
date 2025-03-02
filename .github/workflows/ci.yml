@@ -13,7 +13,7 @@ jobs:
         with:
           python-version-file: "pyproject.toml"
       - name: install
-        run: uv sync --group lint
+        run: uv sync --all-groups
       - name: ruff check
         run: uv run ruff check green_melon
       - name: run format
