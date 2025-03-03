@@ -4,7 +4,7 @@ on:
   push
 
 jobs:
-  check-and-format:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
