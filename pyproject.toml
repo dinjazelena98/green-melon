@@ -59,3 +59,6 @@ disable_error_code = [
     "union-attr",
     "arg-type"
 ]
+
+[tool.pytest.ini_options]
+addopts = "--cov-report term-missing --cov=green_melon --cov-report html --cov-fail-under=80"
