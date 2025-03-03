@@ -25,33 +25,33 @@
 ### [WEED25 Dataset](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.1053329/full)
 
 #### **🌿 Broadleaf Weeds**
-- **Pigweed:** `744` images  
-- **White Smartweed:** `670` images  
+- **Pigweed:** `742` images  
+- **White Smartweed:** `671` images  
 - **Chinese Knotweed:** `391` images  
-- **Horseweed:** `190` images _(Check augmentation for this class)_  
-- **Velvetleaf:** `623` images  
-- **Cocklebur:** `750` images  
-- **Goosefoot:** `594` images  
+- **Horseweed:** `191` images _(Check augmentation for this class)_  
+- **Velvetleaf:** `622` images  
+- **Cocklebur:** `745` images  
+- **Goosefoot:** `593` images  
 - **Purslane:** `730` images  
 
 #### **🌱 Grass Weeds**
-- **Barnyard Grass:** `564` images  
-- **Crabgrass:** `595` images  
-- **Green Foxtail:** `553` images _(High-quality field images)_
+- **Barnyard Grass:** `563` images  
+- **Crabgrass:** `594` images  
+- **Green Foxtail:** `552` images _(High-quality field images)_
 
 ---
 
 #### YOLO Version of WEED25
-- **Total Images:** `6,394` images (broadleaf and grass weeds)  
+- **Total Images:** `6,394` images
 - **Image Distribution:**
-  - 🌿 **Broadleaf Weeds:** `4,717` images  
+  - 🌿 **Broadleaf Weeds:** `4,716` images  
   - 🌱 **Grass Weeds:** `1,677` images  
 - **Bounding Boxes:**
-  - 🌿 **Broadleaf Weed Images:** `5,590` bounding boxes  
+  - 🌿 **Broadleaf Weed Images:** `5,5588` bounding boxes  
   - 🌱 **Grass Weed Images:** `1,961` bounding boxes  
-- **Annotation Details:**  
-  Each image may contain **multiple bounding boxes**, but every image is associated with a **single unique label**.
-
+  - Each image may contain **multiple bounding boxes**, but every image is associated with a **single unique label**.
+- **Backgrounds(empty image):**
+  - ```pigweed (574).txt```
 ---
 
 ### [Sorghumweed Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1)

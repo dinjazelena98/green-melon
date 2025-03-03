@@ -12,7 +12,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-from green_melon.annot import yolo_to_pascal_box
+from green_melon.annot import YoloBox, yolo_to_pascal_box
 
 
 def _draw_annotation(
@@ -67,7 +67,6 @@ def plot_pascal_img(img: str, xml: str) -> None:
     root = tree.getroot()
 
     image = cv2.cvtColor(cv2.imread(img), cv2.COLOR_BGR2RGB)
-
     for obj in root.findall("object"):
         bndbox = obj.find("bndbox")
 
@@ -118,7 +117,7 @@ def plot_yolo_img(img: str, txt: str) -> None:
         height = float(parts[4])
 
         xmin, ymin, xmax, ymax = yolo_to_pascal_box(
-            (x_center, y_center, width, height), (image.shape[1], image.shape[0])
+            (image.shape[1], image.shape[0]), YoloBox(x_center, y_center, width, height)
         )
 
         _draw_annotation(image, label, (xmin, ymin, xmax, ymax))
