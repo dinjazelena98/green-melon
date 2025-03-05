@@ -133,7 +133,7 @@ def yolo_to_pascal_box(size: tuple[int, int], bbox: YoloBox) -> PascalBox:
     y_max: float = img_height * bbox.y_center + (bbox.bbox_height * img_height / 2)
     y_min: float = img_height * bbox.y_center - (bbox.bbox_height * img_height / 2)
 
-    return PascalBox(int(x_min), int(y_min), int(x_max), int(y_max))
+    return PascalBox(int(round(x_min)), int(round(y_min)), int(round(x_max)), int(round(y_max)))
 
 
 def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> None:
@@ -163,7 +163,7 @@ def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> 
     for obj in root.findall("object"):
         label = obj.find("name").text.strip()
         if label not in labels_mapping:
-            msg = f"{label} not found in {labels_mapping.keys()}"
+            msg = f"{label} not found in {list(labels_mapping.keys())}"
             raise ValueError(msg)
 
         bndbox = obj.find("bndbox")
@@ -187,7 +187,7 @@ def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> 
         f.write("\n".join(yolo_format))
 
 
-def coco_to_yolo_box(json_path: str, labels_mapping: dict, out: str = "./") -> None:
+def json2yolo(json_path: str, labels_mapping: dict, out: str = "./") -> None:
     """
     Convert COCO annotations to YOLO TXT format and save them to text files.
 
@@ -210,19 +210,21 @@ def coco_to_yolo_box(json_path: str, labels_mapping: dict, out: str = "./") -> N
 
     """
     with Path(json_path).open("r") as f:
-        annotations = json.load(f)
+        coco_annotations = json.load(f)
 
     annots_per_img: dict = {}
-    for annot in annotations["annotations"]:
+    # Key is image_id, values are list of annotations(bbox, label_id) for given image
+
+    for annot in coco_annotations["annotations"]:
         annots_per_img.setdefault(annot["image_id"], []).append(annot)
 
-    imgs_to_ids: dict[str, dict] = {img["id"]: img for img in annotations["images"]}
-
-    for img_id, img in imgs_to_ids.items():
+    imgs_per_id: dict[str, dict] = {img["id"]: img for img in coco_annotations["images"]}
+    # Key is image_id, value is image info, e.g height, width
+    for img_id, img in imgs_per_id.items():
         img_width: int = img["width"]
         img_height: int = img["height"]
 
-        coordinates = []
+        yolo_coordinates = []
 
         for annot in annots_per_img[img_id]:
             x, y, bbox_width, bbox_height = annot["bbox"]
@@ -232,11 +234,11 @@ def coco_to_yolo_box(json_path: str, labels_mapping: dict, out: str = "./") -> N
             bbox_width /= img_width
             bbox_height /= img_height
 
-            yolo_label = labels_mapping.get(annot["category_id"], -1)
+            yolo_label = labels_mapping[annot["category_id"]]
 
-            coordinates.append(
+            yolo_coordinates.append(
                 f"{yolo_label} {x_center:.6f} {y_center:.6f} {bbox_width:.6f} {bbox_height:.6f}"
             )
         output_file: Path = Path(out) / (Path(img["file_name"]).stem + ".txt")
         with output_file.open("w") as f:
-            f.write("\n".join(coordinates))
+            f.write("\n".join(yolo_coordinates))

@@ -22,7 +22,8 @@
 
 ## Datasets
 
-### [WEED25 Dataset](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.1053329/full)
+### 1. WEED25 Dataset  
+[WEED25 Dataset Publication](https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.1053329/full)
 
 #### **🌿 Broadleaf Weeds**
 - **Pigweed:** `742` images  
@@ -54,34 +55,31 @@
   - ```pigweed (574).txt```
 ---
 
-### [Sorghumweed Dataset](https://data.mendeley.com/datasets/y9bmtf4xmr/1)
+### 2. Sorghumweed Dataset  
+[Sorghumweed Dataset Publication](https://data.mendeley.com/datasets/y9bmtf4xmr/1)
 
-#### Sorghumweed Dataset Classification
-- **Total Images:** `4,312` images  
+This dataset supports both classification and segmentation tasks with high-quality images.
+
+### Sorghumweed Dataset – Classification
+- **Total Images:** `4,312`
 - **Class Distribution:**
-  - **🌿Broadleaf Weeds:** `1,441` images
-  - **🌱Grass Weeds:** `1,467` images
-- High quality images but would requiry manual labeling.
+  - 🌿 **Broadleaf Weeds:** `1,441` images  
+  - 🌱 **Grass Weeds:** `1,467` images  
+> *Note:* These images require manual labeling for classification.
 
-#### YOLO Version of Sorghumweed Dataset Segmentation
-
-- **Total Images:** `253` images (broadleaf and grass weeds)
-
-- **Images with a Unique Label (per label):**
-  - **🌿 Broadleaf Weeds:** `35` images  
-  - **🌱 Grass Weeds:** `8` images  
-
+### YOLO Version of Sorghumweed Dataset – Segmentation
+- **Total Images:** `253` (containing both broadleaf and grass weeds)
+- **Images with a Single Unique Label:**
+  - 🌿 **Broadleaf Weeds:** `35` images  
+  - 🌱 **Grass Weeds:** `8` images  
 - **Images with Both Labels:** `140` images
-
 - **Overall Image Count per Label:**
-  - **🌿 Broadleaf Weeds:** `175` images  
-  - **🌱 Grass Weeds:** `148` images
-
+  - 🌿 **Broadleaf Weeds:** `175` images  
+  - 🌱 **Grass Weeds:** `148` images
 - **Empty Images (No Annotations):** `69` images
-
 - **Number of Bounding Boxes per Label:**
-  - **🌿 Broadleaf Weeds:** `2785` bounding boxes  
-  - **🌱 Grass Weeds:** `609` bounding boxes
+  - 🌿 **Broadleaf Weeds:** `2,785` bounding boxes  
+  - 🌱 **Grass Weeds:** `609` bounding boxes
 
 ---
 
