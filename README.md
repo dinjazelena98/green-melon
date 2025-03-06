@@ -83,6 +83,38 @@ This dataset supports both classification and segmentation tasks with high-quali
 
 ---
 
+## 3. Crop-and-Weed Dataset
+ [Crop and Weed Publication](https://github.com/cropandweed/cropandweed-dataset)
+#### YOLO Version of Crop-and-Weed Dataset – Statistics
+
+- **Total Images:** `4,473`  
+- **Images with a Single Unique Label:** `3,212`  
+- **Images with Multiple Labels:** `1,261`
+
+**Per Label Details:**
+
+- **🌿 Broadleaf (0):**  
+  - Images: `1,303`  
+  - Single-label Images: `761`  
+  - Bounding Boxes: `8,127`
+
+- **🌱 Grass (1):**  
+  - Images: `2,162`  
+  - Single-label Images: `1,124`  
+  - Bounding Boxes: `15,146`
+
+- **🌽 Corn (2):**  
+  - Images: `1,834`  
+  - Single-label Images: `980`  
+  - Bounding Boxes: `6,018`
+
+- **🌻 Sunflower (4):**  
+  - Images: `590`  
+  - Single-label Images: `347`  
+  - Bounding Boxes: `1,879`
+
+---
+
 ### [Broad-Leaved Dock Dataset](https://www.kaggle.com/datasets/gavinarmstrong/open-sprayer-images/data)
 
 #### **🌿 Broadleaf Weeds**
@@ -94,26 +126,5 @@ This dataset supports both classification and segmentation tasks with high-quali
   - No annotations provided (requires manual labeling using bounding boxes)
 - **Data Quality:**  
   - Many images are `shit`; however, select images may serve as useful background examples.
-
----
-
-### [Crop-and-Weed Dataset](https://github.com/cropandweed/cropandweed-dataset)
-
-#### YOLO Version of Crop-and-Weed Dataset
-
-- Total Images: `6,990` images
-
-- **Bounding Box Count per Label:**
-  - **🌿 Broadleaf Weeds:** 37,501 boxes  
-  - **🌱 Grass Weeds:** 21,758 boxes  
-  - **🌽 Corn:** 6,162 boxes  
-  - **🌻 Sunflower:** 1,916 boxes  
-  *(Note: Wheat (3) did not yield any annotations.)*
-
-- **Image Count per Label:**
-  - **🌿 Broadleaf Weeds:** found in 5,098 images  
-  - **🌱 Grass Weeds:** found in 3,000 images  
-  - **🌽 Corn:** found in 1,882 images  
-  - **🌻 Sunflower:** found in 607 images
 
 ---
