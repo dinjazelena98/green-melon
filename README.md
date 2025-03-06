@@ -94,7 +94,7 @@ This dataset supports both classification and segmentation tasks with high-quali
 - **Class Distribution:**
   - 🌿 **Broadleaf Weeds:** `1,441` images  
   - 🌱 **Grass Weeds:** `1,467` images  
-> *Note:* These images require manual labeling for classification.
+> *Note:* These images require manual labeling for object detection.
 
 ### YOLO Version of Sorghumweed Dataset – Segmentation
 - **Total Images:** `253` (containing both broadleaf and grass weeds)
@@ -151,9 +151,8 @@ This dataset supports both classification and segmentation tasks with high-quali
 - **Contains:**  
   - `1,307` images of broad-leaved docks  
   - `5,392` images of non broad-leaved docks (background & other elements)
-- **Annotation Status:**
-  - No annotations provided (requires manual labeling using bounding boxes)
 - **Data Quality:**  
-  - Many images are `shit`; however, select images may serve as useful background examples.
+  - Many images are `shit`; however, some images may serve as useful background examples.
+> *Note:* These images require manual labeling for object detection.
 
 ---
