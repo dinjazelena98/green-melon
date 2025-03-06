@@ -20,6 +20,35 @@
 
 ---
 
+## `green-melon` dataset
+
+- **Total Images:** `11,120`
+- **Image Label:**
+  - **Single-label Images:** `9,649`
+  - **Multi-label Images:** `1,401`
+
+### Aggregated Per Label
+
+- 🌿 **Broadleaf Weeds:**
+  - **Images:** `6,194`  
+  - **Bounding Boxes:** `66,500`  
+
+- 🌱 **Grass Weeds:**
+  - **Images:** `3,987`  
+  - **Bounding Boxes:** `17,716`  
+
+- 🌽 **Corn:**
+  - **Images:** `1,834`  
+  - **Bounding Boxes:** `6,018`  
+
+- 🌻 **Sunflower:**
+  - **Images:** `590`  
+  - **Bounding Boxes:** `1,879`  
+
+- 🌾 **Wheat:**
+  - **Images:** `0`  
+  - **Bounding Boxes:** `0`
+
 ## Datasets
 
 ### 1. WEED25 Dataset  
@@ -93,22 +122,22 @@ This dataset supports both classification and segmentation tasks with high-quali
 
 **Per Label Details:**
 
-- **🌿 Broadleaf (0):**  
+- **🌿 Broadleaf Weeds:**  
   - Images: `1,303`  
   - Single-label Images: `761`  
   - Bounding Boxes: `8,127`
 
-- **🌱 Grass (1):**  
+- **🌱 Grass Weeds:**  
   - Images: `2,162`  
   - Single-label Images: `1,124`  
   - Bounding Boxes: `15,146`
 
-- **🌽 Corn (2):**  
+- **🌽 Corn:**  
   - Images: `1,834`  
   - Single-label Images: `980`  
   - Bounding Boxes: `6,018`
 
-- **🌻 Sunflower (4):**  
+- **🌻 Sunflower:**  
   - Images: `590`  
   - Single-label Images: `347`  
   - Bounding Boxes: `1,879`
