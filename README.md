@@ -77,7 +77,7 @@
   - 🌿 **Broadleaf Weeds:** `4,716` images  
   - 🌱 **Grass Weeds:** `1,677` images  
 - **Bounding Boxes:**
-  - 🌿 **Broadleaf Weed Images:** `5,5588` bounding boxes  
+  - 🌿 **Broadleaf Weed Images:** `5,588` bounding boxes  
   - 🌱 **Grass Weed Images:** `1,961` bounding boxes  
   - Each image may contain **multiple bounding boxes**, but every image is associated with a **single unique label**.
 - **Backgrounds(empty image):**
