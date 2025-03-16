@@ -1,1 +1,0 @@
-We want to identify and differentiate between weeds and crops.

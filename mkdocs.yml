@@ -1,6 +1,7 @@
 site_name: green-melon docs
 nav:
   - Home: index.md
+  - About: about.md
   - Zea Mays:
     - Problem: zea_mays.md
     - Dataset: dataset.md
@@ -17,3 +18,8 @@ extra:
   font:
     text: Roboto Mono
     code: Roboto Mono
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
