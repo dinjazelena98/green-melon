@@ -133,7 +133,7 @@ def yolo_to_pascal_box(size: tuple[int, int], bbox: YoloBox) -> PascalBox:
     y_max: float = img_height * bbox.y_center + (bbox.bbox_height * img_height / 2)
     y_min: float = img_height * bbox.y_center - (bbox.bbox_height * img_height / 2)
 
-    return PascalBox(int(round(x_min)), int(round(y_min)), int(round(x_max)), int(round(y_max)))
+    return PascalBox(round(x_min), round(y_min), round(x_max), round(y_max))
 
 
 def xml2yolo(xml_path: str, labels_mapping: dict[str, int], out: str = "./") -> None:

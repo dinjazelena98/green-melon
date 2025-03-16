@@ -1,0 +1,19 @@
+site_name: green-melon docs
+nav:
+  - Home: index.md
+  - Zea Mays:
+    - Problem: zea_mays.md
+    - Dataset: dataset.md
+
+
+theme:
+  name: material
+  palette:
+    primary: light-green
+    accent: yellow
+  logo: assets/green-melon.png
+  favicon: assets/favicon.ico
+extra:
+  font:
+    text: Roboto Mono
+    code: Roboto Mono
