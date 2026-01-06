@@ -20,7 +20,6 @@ ty:
 # Run all checks
 all: format check ty
 
-
 # Clean cache files
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
