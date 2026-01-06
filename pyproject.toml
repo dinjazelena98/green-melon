@@ -1,0 +1,31 @@
+[project]
+name = "green-melon"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic>=2.12.5",
+]
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.10.8",
+    "pillow>=12.1.0",
+    "pytest>=9.0.2",
+    "ruff>=0.14.10",
+    "ty>=0.0.9",
+]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "S101",   # Allow assert statements
+    "D203",   # Incompatible with D211 (no-blank-line-before-class)
+    "D213",   # Incompatible with D212 (multi-line-summary-first-line)
+    "COM812", # Conflicts with formatter (trailing comma)
+    "ERA001"  # comments
+]

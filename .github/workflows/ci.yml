@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: uv
+      uses: astral-sh/setup-uv@v4
+
+    - name: deps
+      run: |
+        uv sync --dev
+
+    - name: format
+      run: |
+        uv run ruff format --check green_melon
+
+    - name: check
+      run: |
+        uv run ruff check green_melon
+
+    - name: type-check
+      run: |
+        uv run ty check -v green_melon
